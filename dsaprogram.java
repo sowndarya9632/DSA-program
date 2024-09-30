@@ -1,33 +1,37 @@
 package linearsearch;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-public class FindIndices {
+public class FirstNonDuplicateCharacter {
 
-    // Method to find all indices where a specific integer appears in an array
-    public static List<Integer> findIndices(int[] array, int target) {
-        List<Integer> indices = new ArrayList<>(); // List to store indices
-        
-        // Iterate through the array to find occurrences of the target
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == target) {
-                indices.add(i); // Add index to the list if a match is found
+    // Method to find the first non-duplicate character in a string
+    public static Character findFirstNonDuplicate(String str) {
+        HashMap<Character, Integer> charCount = new HashMap<>(); // Map to store character counts
+
+        // First pass: Count occurrences of each character
+        for (char c : str.toCharArray()) {
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+        }
+
+        // Second pass: Find the first character with a count of 1
+        for (char c : str.toCharArray()) {
+            if (charCount.get(c) == 1) {
+                return c; // Return the first non-duplicate character
             }
         }
-        return indices; // Return the list of indices
+
+        return null; // Return null if no non-duplicate character is found
     }
 
     public static void main(String[] args) {
-        int[] numbers = {5, 3, 9, 1, 3, 7, 3}; // Example array
-        int target = 3; // Example target integer
+        String input = "swiss"; // Example input string
         
-        List<Integer> result = findIndices(numbers, target);
+        Character result = findFirstNonDuplicate(input);
         
-        if (result.isEmpty()) {
-            System.out.println("The integer " + target + " does not appear in the array.");
+        if (result != null) {
+            System.out.println("The first non-duplicate character is: " + result);
         } else {
-            System.out.println("The integer " + target + " appears at indices: " + result);
+            System.out.println("There are no non-duplicate characters in the string.");
         }
     }
 }
