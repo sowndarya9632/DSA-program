@@ -1,32 +1,57 @@
 package binarysearch;
 
-public class BinarySearch {
+public class BinarySearchBoundary {
 
-    public static int binarySearch(int[] arr, int target) {
+    // Method to find the smallest element greater than or equal to target
+    public static int findSmallestGreaterThanOrEqual(int[] arr, int target) {
         int left = 0;
         int right = arr.length - 1;
+        int result = -1;
 
         while (left <= right) {
-            int mid = left + (right - left) / 2; // Prevents overflow
+            int mid = left + (right - left) / 2;
 
-            if (arr[mid] == target) {
-                return mid; // Target found
-            } else if (arr[mid] < target) {
-                left = mid + 1; // Search in the right half
+            if (arr[mid] >= target) {
+                result = mid; // Update result and continue searching left
+                right = mid - 1;
             } else {
-                right = mid - 1; // Search in the left half
+                left = mid + 1;
             }
         }
 
-        return -1; // Target not found
+        return result; // Returns -1 if not found
+    }
+
+    // Method to find the largest element smaller than or equal to target
+    public static int findLargestSmallerThanOrEqual(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+        int result = -1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid] <= target) {
+                result = mid; // Update result and continue searching right
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return result; // Returns -1 if not found
     }
 
     public static void main(String[] args) {
-        int[] sortedArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        int targetValue = 5;
-        int index = binarySearch(sortedArray, targetValue);
+        int[] sortedArray = {1, 2, 4, 5, 6, 8, 10};
+        int targetValue1 = 5;
+        int targetValue2 = 7;
 
-        System.out.println("Index of " + targetValue + ": " + index); // Output: Index of 5: 4
+        int index1 = findSmallestGreaterThanOrEqual(sortedArray, targetValue1);
+        int index2 = findLargestSmallerThanOrEqual(sortedArray, targetValue2);
+
+        System.out.println("Index of smallest element >= " + targetValue1 + ": " + index1); // Output: 3
+        System.out.println("Index of largest element <= " + targetValue2 + ": " + index2); // Output: 4
     }
 }
 
