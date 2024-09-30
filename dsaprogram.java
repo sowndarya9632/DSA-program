@@ -1,42 +1,32 @@
-package linearsearch;
+package binarysearch;
 
-public class LinearSearchString {
-    
-    // Method to perform linear search on an array of strings without using equals or ==
-    public static int linearSearch(String[] array, String target) {
-        for (int i = 0; i < array.length; i++) {
-            if (isSameString(array[i], target)) {
-                return i; // Return the index if found
+public class BinarySearch {
+
+    public static int binarySearch(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2; // Prevents overflow
+
+            if (arr[mid] == target) {
+                return mid; // Target found
+            } else if (arr[mid] < target) {
+                left = mid + 1; // Search in the right half
+            } else {
+                right = mid - 1; // Search in the left half
             }
         }
-        return -1; // Return -1 if not found
-    }
 
-    // Helper method to compare two strings character by character
-    private static boolean isSameString(String str1, String str2) {
-       
-        if (str1.length() != str2.length()) {
-            return false; // Different lengths, cannot be the same
-        }
-        // Compare characters
-        for (int j = 0; j < str1.length(); j++) {
-            if (str1.charAt(j) != str2.charAt(j)) {
-                return false; // Characters do not match
-            }
-        }
-        return true; // All characters match
+        return -1; // Target not found
     }
 
     public static void main(String[] args) {
-        String[] words = {"apple", "banana", "cherry", "date", "fig"};
-        String target = "cherry"; // Example target string
-        
-        int result = linearSearch(words, target);
-        
-        if (result != -1) {
-            System.out.println("String \"" + target + "\" found at index: " + result);
-        } else {
-            System.out.println("String \"" + target + "\" not found in the array.");
-        }
+        int[] sortedArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int targetValue = 5;
+        int index = binarySearch(sortedArray, targetValue);
+
+        System.out.println("Index of " + targetValue + ": " + index); // Output: Index of 5: 4
     }
 }
+
