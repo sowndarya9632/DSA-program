@@ -1,59 +1,32 @@
 package binarysearch;
+public class BitonicArrayPeak {
 
-public class BinarySearchOccurrences {
-
-    // Method to find the first occurrence of a target element
-    public static int findFirstOccurrence(int[] arr, int target) {
+    // Method to find the peak element in a bitonic array
+    public static int findPeak(int[] arr) {
         int left = 0;
         int right = arr.length - 1;
-        int result = -1;
 
-        while (left <= right) {
+        while (left < right) {
             int mid = left + (right - left) / 2;
 
-            if (arr[mid] == target) {
-                result = mid; // Update result and continue searching left
-                right = mid - 1;
-            } else if (arr[mid] < target) {
+            // Compare mid element with its next element
+            if (arr[mid] < arr[mid + 1]) {
+                // If mid is less than next, peak is on the right side
                 left = mid + 1;
             } else {
-                right = mid - 1;
+                // If mid is greater than or equal to next, peak is on the left side or mid itself
+                right = mid-1;
             }
         }
 
-        return result; // Will return -1 if not found
-    }
-
-    // Method to find the last occurrence of a target element
-    public static int findLastOccurrence(int[] arr, int target) {
-        int left = 0;
-        int right = arr.length - 1;
-        int result = -1;
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-
-            if (arr[mid] == target) {
-                result = mid; // Update result and continue searching right
-                left = mid + 1;
-            } else if (arr[mid] < target) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
-
-        return result; // Will return -1 if not found
+        // Left will point to the peak element
+        return right; // Index of the peak element
     }
 
     public static void main(String[] args) {
-        int[] sortedArray = {1, 2, 2, 2, 3, 4, 5, 5, 5, 6};
-        int targetValue = 5;
-
-        int firstIndex = findFirstOccurrence(sortedArray, targetValue);
-        int lastIndex = findLastOccurrence(sortedArray, targetValue);
-
-        System.out.println("First occurrence of " + targetValue + ": " + firstIndex); // Output: 6
-        System.out.println("Last occurrence of " + targetValue + ": " + lastIndex);   // Output: 8
+        int[] a= {1, 31, 8, 1, 4, 2};
+        int peakIndex = findPeak(a);
+        System.out.println("Peak element index: " + peakIndex); // Output: 3
+        System.out.println("Peak element: " + a[peakIndex]); // Output: 12
     }
 }
