@@ -1,30 +1,25 @@
 package linearsearch;
 
-import java.util.List;
+public class MaxElementFinder {
 
-public class FirstOccurrenceSearch {
+    // Method to find the maximum element in an array of integers
+    public static int findMax(int[] array) {
+        
+        int max = array[0]; // Initialize max with the first element
 
-    // Method to find the first occurrence of a number in a list of integers
-    public static int findFirstOccurrence(List<Integer> list, int target) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) == target) {
-                return i; // Return the index if found
+        // Iterate through the array to find the maximum
+        for (int i = 0 ; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i]; // Update max if a larger element is found
             }
         }
-        return -1; // Return -1 if not found
+        return max; // Return the maximum element
     }
 
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(5, 3, 7, 1, 9, 3, 2); // Example list
-        int target = 3; // Example target number
-        
-        int result = findFirstOccurrence(numbers, target);
-        
-        if (result != -1) {
-            System.out.println("Number " + target + " found at index: " + result);
-        } else {
-            System.out.println("Number " + target + " not found in the list.");
-        }
+        int[] numbers = {5, 3, 9, 1, 7}; // Example array
+            int maxElement = findMax(numbers);
+            System.out.println("The maximum element in the array is: " + maxElement);
     }
 }
 
