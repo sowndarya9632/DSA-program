@@ -1,27 +1,34 @@
 package linearsearch;
 
-public class CharacterCount {
+import java.util.ArrayList;
+import java.util.List;
 
-    // Method to count occurrences of a specific character in a string
-    public static int countCharacterOccurrences(String str, char target) {
-        int count = 0; // Initialize count
+public class FindIndices {
+
+    // Method to find all indices where a specific integer appears in an array
+    public static List<Integer> findIndices(int[] array, int target) {
+        List<Integer> indices = new ArrayList<>(); // List to store indices
         
-        // Iterate through each character in the string
-        for (int i = 0; i < str.length(); i++) {
-            // Check if the current character matches the target
-            if (str.charAt(i) == target) {
-                count++; // Increment count if a match is found
+        // Iterate through the array to find occurrences of the target
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == target) {
+                indices.add(i); // Add index to the list if a match is found
             }
         }
-        return count; // Return the total count
+        return indices; // Return the list of indices
     }
 
     public static void main(String[] args) {
-        String text = "hello world, welcome to the universe!";
-        char target = 'o'; // Example target character
+        int[] numbers = {5, 3, 9, 1, 3, 7, 3}; // Example array
+        int target = 3; // Example target integer
         
-        int result = countCharacterOccurrences(text, target);
+        List<Integer> result = findIndices(numbers, target);
         
-        System.out.println("Character '" + target + "' appears " + result + " times in the string.");
+        if (result.isEmpty()) {
+            System.out.println("The integer " + target + " does not appear in the array.");
+        } else {
+            System.out.println("The integer " + target + " appears at indices: " + result);
+        }
     }
 }
+
