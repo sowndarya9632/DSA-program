@@ -1,32 +1,44 @@
 package binarysearch;
-public class BitonicArrayPeak {
+public class RotatedSortedArraySearch {
 
-    // Method to find the peak element in a bitonic array
-    public static int findPeak(int[] arr) {
+    // Method to check if the target exists in a rotated sorted array
+    public static boolean search(int[] nums, int target) {
         int left = 0;
-        int right = arr.length - 1;
+        int right = nums.length - 1;
 
-        while (left < right) {
+        while (left <= right) {
             int mid = left + (right - left) / 2;
 
-            // Compare mid element with its next element
-            if (arr[mid] < arr[mid + 1]) {
-                // If mid is less than next, peak is on the right side
-                left = mid + 1;
-            } else {
-                // If mid is greater than or equal to next, peak is on the left side or mid itself
-                right = mid-1;
+            // Check if the mid element is the target
+            if (nums[mid] == target) {
+                return true; // Target found
+            }
+
+            // Check which half is sorted
+            if (nums[left] <= nums[mid]) { // Left half is sorted
+                if (nums[left] <= target && target < nums[mid]) {
+                    right = mid - 1; // Target is in the left sorted half
+                } else {
+                    left = mid + 1; // Target is in the right half
+                }
+            } else { // Right half is sorted
+                if (nums[mid] < target && target <= nums[right]) {
+                    left = mid + 1; // Target is in the right sorted half
+                } else {
+                    right = mid - 1; // Target is in the left half
+                }
             }
         }
 
-        // Left will point to the peak element
-        return right; // Index of the peak element
+        return false; // Target not found
     }
 
     public static void main(String[] args) {
-        int[] a= {1, 31, 8, 1, 4, 2};
-        int peakIndex = findPeak(a);
-        System.out.println("Peak element index: " + peakIndex); // Output: 3
-        System.out.println("Peak element: " + a[peakIndex]); // Output: 12
+        int[] rotatedArray = {4, 5, 6, 7, 0, 1, 2};
+        int target = 2;
+
+        boolean exists = search(rotatedArray, target);
+        System.out.println("Target " + target + " exists: " + exists); // Output: true
     }
 }
+
